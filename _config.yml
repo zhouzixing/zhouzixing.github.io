@@ -111,7 +111,7 @@ theme: yilia
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/zhouzixing/blog.git (改这里)
+  repository: https://zhouzixing.github.io/
   branch: master
 
 jsonContent:
