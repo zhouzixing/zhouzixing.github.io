@@ -35,9 +35,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-# url: https://zhouzixing.github.io/blog
-root: /blog/
-root_url: /blog/
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -85,8 +83,8 @@ tag_map:
 ## Hexo uses Connect as a server
 ## You can customize the logger format as defined in
 ## http://www.senchalabs.org/connect/logger.html
-port: 4000
-server_ip: localhost
+port: 4001
+server_ip: 185.199.108.153
 logger: false
 logger_format: dev
 
@@ -111,8 +109,8 @@ theme: yilia
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://github.com/zhouzixing/zhouzixing.github.io
-  branch: test
+  repository: https://github.com/zhouzixing/zhouzixing.github.io/
+  branch: master
 
 jsonContent:
   meta: false

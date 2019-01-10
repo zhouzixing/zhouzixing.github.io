@@ -6,7 +6,7 @@ tags:
 	- 旧事
 ---
 
-<p><img src="/blog/assets/blogImg/diary-23.jpg" width="500"></p>
+<p><img src="/assets/blogImg/diary-23.jpg" width="500"></p>
 
 ### 雨中餐
 
