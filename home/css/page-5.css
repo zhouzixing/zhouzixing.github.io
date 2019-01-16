@@ -29,6 +29,7 @@
 }
 
 .portfolio-item {
+    display: block;
     margin-bottom: 30px;
     -webkit-transition: all 0.5s ease-out;
     transition: all 0.5s ease-out;
