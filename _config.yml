@@ -24,11 +24,11 @@ subnav:
   #linkedin: "#"
 
 # Site
-title: 周自兴的博客
+title: 赤子的博客
 subtitle: 狭路相逢勇者胜
 description: 想的太多，做的太少
 keywords:keywords: "前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验"
-author: 周自兴
+author: 赤子
 email: 373298996@qq.com
 language: zh-Hans
 timezone:
@@ -107,10 +107,10 @@ theme: yilia
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repository: https://github.com/zhouzixing/zhouzixing.github.io/
-  branch: master
+# deploy:
+#   type: git
+#   repository: https://github.com/zhouzixing/zhouzixing.github.io/
+#   branch: master
 
 jsonContent:
   meta: false
